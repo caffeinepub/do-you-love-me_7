@@ -1,0 +1,354 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.625rem;
+    --background: 0.95 0.04 0;
+    --foreground: 0.2 0.05 20;
+    --card: 1 0 0;
+    --card-foreground: 0.2 0.05 20;
+    --popover: 1 0 0;
+    --popover-foreground: 0.2 0.05 20;
+    --primary: 0.55 0.22 15;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.9 0.08 10;
+    --secondary-foreground: 0.3 0.1 15;
+    --muted: 0.92 0.04 5;
+    --muted-foreground: 0.5 0.05 10;
+    --accent: 0.85 0.12 5;
+    --accent-foreground: 0.3 0.1 15;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.88 0.06 5;
+    --input: 0.88 0.06 5;
+    --ring: 0.55 0.22 15;
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.985 0 0;
+    --sidebar-foreground: 0.145 0 0;
+    --sidebar-primary: 0.205 0 0;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.97 0 0;
+    --sidebar-accent-foreground: 0.205 0 0;
+    --sidebar-border: 0.922 0 0;
+    --sidebar-ring: 0.708 0 0;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+/* ===== APP ROOT ===== */
+.app-root {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background-image: url("/assets/generated/romantic-bg.dim_1200x800.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.overlay-layer {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    oklch(0.7 0.12 350 / 0.55) 0%,
+    oklch(0.55 0.18 10 / 0.45) 50%,
+    oklch(0.6 0.15 340 / 0.5) 100%
+  );
+  z-index: 1;
+}
+
+/* ===== AMBIENT HEARTS ===== */
+.ambient-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.ambient-heart {
+  position: absolute;
+  bottom: -60px;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(-10deg);
+  }
+  10% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-110vh) rotate(10deg);
+  }
+}
+
+/* ===== MAIN CARD ===== */
+.main-card {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2.5rem;
+  background: oklch(1 0 0 / 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  border: 1px solid oklch(1 0 0 / 0.3);
+  box-shadow: 0 8px 40px oklch(0.4 0.2 10 / 0.3), 0 2px 8px
+    oklch(0.3 0.15 350 / 0.2);
+  max-width: 520px;
+  width: 90%;
+  text-align: center;
+}
+
+/* ===== QUESTION TEXT ===== */
+.question-text {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  color: #fff;
+  text-shadow: 0 2px 12px oklch(0.4 0.25 10 / 0.7), 0 0 30px
+    oklch(0.7 0.2 350 / 0.4);
+  margin: 0;
+  line-height: 1.3;
+  transition: all 0.4s ease;
+}
+
+/* ===== GIF ===== */
+.gif-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.cat-gif {
+  height: 220px;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px oklch(0.35 0.2 350 / 0.5);
+  animation: bounce 2.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.cat-gif.shaking {
+  animation: shake 0.6s ease-in-out, bounce 2.5s ease-in-out infinite 0.6s;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  15% {
+    transform: translateX(-8px) rotate(-3deg);
+  }
+  30% {
+    transform: translateX(8px) rotate(3deg);
+  }
+  45% {
+    transform: translateX(-6px) rotate(-2deg);
+  }
+  60% {
+    transform: translateX(6px) rotate(2deg);
+  }
+  75% {
+    transform: translateX(-4px) rotate(-1deg);
+  }
+  90% {
+    transform: translateX(4px) rotate(1deg);
+  }
+}
+
+/* ===== BUTTONS ===== */
+.buttons {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 0.75rem 2.5rem;
+  border: none;
+  border-radius: 3rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn:hover {
+  transform: scale(1.08) translateY(-2px);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, oklch(0.55 0.22 15), oklch(0.45 0.25 5));
+  color: #fff;
+  box-shadow: 0 4px 20px oklch(0.45 0.25 10 / 0.5);
+}
+
+.btn-yes:hover {
+  background: linear-gradient(135deg, oklch(0.6 0.22 15), oklch(0.5 0.25 5));
+  box-shadow: 0 6px 28px oklch(0.45 0.25 10 / 0.7);
+}
+
+.btn-no {
+  background: linear-gradient(135deg, oklch(0.75 0.08 350), oklch(0.7 0.1 340));
+  color: oklch(0.3 0.1 10);
+  box-shadow: 0 4px 16px oklch(0.5 0.1 350 / 0.3);
+}
+
+.btn-no:hover {
+  background: linear-gradient(135deg, oklch(0.8 0.08 350), oklch(0.75 0.1 340));
+}
+
+/* ===== YES SCREEN ===== */
+.yes-screen {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 80vh;
+}
+
+.celebration-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9;
+  overflow: hidden;
+}
+
+.celebration-heart {
+  position: absolute;
+  bottom: -60px;
+  opacity: 0;
+  animation: floatUp linear forwards;
+}
+
+.yes-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3rem 2.5rem;
+  background: oklch(1 0 0 / 0.18);
+  backdrop-filter: blur(16px);
+  border-radius: 2rem;
+  border: 1px solid oklch(1 0 0 / 0.35);
+  box-shadow: 0 12px 48px oklch(0.4 0.2 10 / 0.4);
+  max-width: 520px;
+  width: 90%;
+  text-align: center;
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.yes-title {
+  font-family: "Pacifico", cursive;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: #fff;
+  text-shadow: 0 2px 16px oklch(0.4 0.25 10 / 0.8), 0 0 40px
+    oklch(0.7 0.2 350 / 0.5);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.yes-subtitle {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.4rem;
+  color: oklch(0.95 0.05 350);
+  text-shadow: 0 1px 8px oklch(0.4 0.2 10 / 0.5);
+  margin: 0;
+}
+
+.yes-gif {
+  height: 220px;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px oklch(0.35 0.2 350 / 0.5);
+  animation: bounce 2.5s ease-in-out infinite;
+}
+
+/* ===== FOOTER ===== */
+.app-footer {
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: oklch(0.95 0.03 350 / 0.8);
+  z-index: 20;
+  text-shadow: 0 1px 4px oklch(0.2 0.1 10 / 0.6);
+}
+
+.app-footer a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.heart-icon {
+  display: inline-block;
+}
